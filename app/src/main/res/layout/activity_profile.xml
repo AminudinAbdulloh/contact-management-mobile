@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <!-- Header -->
-    <include layout="@layout/header_main" />
+    <include layout="@layout/header" />
 
     <ScrollView
         android:layout_width="match_parent"

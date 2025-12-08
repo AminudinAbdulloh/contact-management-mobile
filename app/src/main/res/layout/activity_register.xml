@@ -1,10 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    android:background="@drawable/bg_gradient"
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large">
+
+        <!-- Registration Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xlarge"
+            android:layout_marginBottom="@dimen/margin_xlarge"
+            app:cardBackgroundColor="@color/gray_800"
+            app:cardCornerRadius="@dimen/radius_large"
+            app:cardElevation="@dimen/elevation_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_large">
+
+                <!-- Icon -->
+                <View
+                    android:layout_width="@dimen/icon_size_huge"
+                    android:layout_height="@dimen/icon_size_huge"
+                    android:background="@drawable/bg_circle_icon" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_large"
+                    android:layout_height="@dimen/icon_size_large"
+                    android:layout_marginTop="-48dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
+                    android:layout_marginTop="-12dp"
+                    android:layout_marginEnd="-24dp"
+                    android:contentDescription="@string/sign_up"
+                    android:src="@drawable/ic_add"
+                    app:tint="@color/white" />
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_header"
+                    android:textStyle="bold" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="Create a new account"
+                    android:textColor="@color/gray_400"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <!-- Username Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@string/username"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:paddingEnd="@dimen/padding_medium">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:contentDescription="@string/username"
+                        android:src="@drawable/ic_person"
+                        app:tint="@color/gray_500" />
+
+                    <EditText
+                        android:id="@+id/etUsername"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Choose a username"
+                        android:inputType="text"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray_500"
+                        android:textSize="@dimen/text_size_medium" />
+                </LinearLayout>
+
+                <!-- Full Name Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/full_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:paddingEnd="@dimen/padding_medium">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:contentDescription="@string/full_name"
+                        android:src="@drawable/ic_card"
+                        app:tint="@color/gray_500" />
+
+                    <EditText
+                        android:id="@+id/etFullName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Enter your full name"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray_500"
+                        android:textSize="@dimen/text_size_medium" />
+                </LinearLayout>
+
+                <!-- Password Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/password"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:paddingEnd="@dimen/padding_medium">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:contentDescription="@string/password"
+                        android:src="@drawable/ic_lock"
+                        app:tint="@color/gray_500" />
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Create a password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray_500"
+                        android:textSize="@dimen/text_size_medium" />
+                </LinearLayout>
+
+                <!-- Confirm Password Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Confirm Password"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:paddingEnd="@dimen/padding_medium">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:contentDescription="Confirm Password"
+                        android:src="@drawable/ic_check"
+                        app:tint="@color/gray_500" />
+
+                    <EditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Confirm your password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray_500"
+                        android:textSize="@dimen/text_size_medium" />
+                </LinearLayout>
+
+                <!-- Register Button -->
+                <Button
+                    android:id="@+id/btnRegister"
+                    style="@style/Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_large"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="@dimen/padding_small"
+                    android:drawableTint="@color/white"
+                    android:text="Register"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <!-- Sign In Link -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Already have an account?"
+                        android:textColor="@color/gray_400"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <TextView
+                        android:id="@+id/tvSignIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@string/sign_in"
+                        android:textColor="@color/blue_400"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
