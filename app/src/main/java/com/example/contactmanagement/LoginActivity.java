@@ -1,24 +1,107 @@
 package com.example.contactmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.contactmanagement.api.ApiClient;
+import com.example.contactmanagement.api.ApiService;
+import com.example.contactmanagement.models.ApiResponse;
+import com.example.contactmanagement.models.LoginRequest;
+import com.example.contactmanagement.models.LoginResponse;
+import com.example.contactmanagement.utils.SharedPrefManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private EditText etUsername, etPassword;
+    private Button btnSignIn;
+    private TextView tvSignUp;
+    private ApiService apiService;
+    private SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // Initialize
+        apiService = ApiClient.getClient().create(ApiService.class);
+        sharedPrefManager = SharedPrefManager.getInstance(this);
+
+        // Check if already logged in
+        if (sharedPrefManager.isLoggedIn()) {
+            startActivity(new Intent(this, ContactsActivity.class));
+            finish();
+            return;
+        }
+
+        // Bind views
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        btnSignIn = findViewById(R.id.btnSignIn);
+        tvSignUp = findViewById(R.id.tvSignUp);
+
+        // Set listeners
+        btnSignIn.setOnClickListener(v -> login());
+        tvSignUp.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        });
+    }
+
+    private void login() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (username.isEmpty()) {
+            etUsername.setError("Username is required");
+            etUsername.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return;
+        }
+
+        btnSignIn.setEnabled(false);
+
+        LoginRequest request = new LoginRequest();
+        request.username = username;
+        request.password = password;
+
+        apiService.login(request).enqueue(new Callback<ApiResponse<LoginResponse>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<LoginResponse>> call, Response<ApiResponse<LoginResponse>> response) {
+                btnSignIn.setEnabled(true);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    LoginResponse data = response.body().data;
+                    if (data != null) {
+                        sharedPrefManager.saveUser(data.token, data.username, data.name);
+                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, ContactsActivity.class));
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<LoginResponse>> call, Throwable t) {
+                btnSignIn.setEnabled(true);
+                Toast.makeText(LoginActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
