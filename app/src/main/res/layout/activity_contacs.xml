@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <include layout="@layout/header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
+
+            <!-- Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_large"
+                    android:layout_height="@dimen/icon_size_large"
+                    android:contentDescription="@string/my_contacts"
+                    android:src="@drawable/ic_contact_book"
+                    app:tint="@color/blue_400" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/my_contacts"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Search Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                app:cardBackgroundColor="@color/gray_800"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/elevation_medium">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_medium">
+
+                    <!-- Search Header -->
+                    <LinearLayout
+                        android:id="@+id/llSearchHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_small">
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size_medium"
+                            android:layout_height="@dimen/icon_size_medium"
+                            android:contentDescription="@string/search_contacts"
+                            android:src="@drawable/ic_search"
+                            app:tint="@color/blue_400" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_medium"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/search_contacts"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_large" />
+
+                        <ImageView
+                            android:id="@+id/ivSearchToggle"
+                            android:layout_width="@dimen/icon_size_medium"
+                            android:layout_height="@dimen/icon_size_medium"
+                            android:contentDescription="@string/search_contacts"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="@color/gray_400" />
+                    </LinearLayout>
+
+                    <!-- Search Fields (Initially Hidden) -->
+                    <LinearLayout
+                        android:id="@+id/llSearchFields"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- Name Search -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/name"
+                            android:textColor="@color/gray_300"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/input_height"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:background="@drawable/bg_input"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/padding_medium"
+                            android:paddingEnd="@dimen/padding_medium">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:contentDescription="@string/name"
+                                android:src="@drawable/ic_person"
+                                app:tint="@color/gray_500" />
+
+                            <EditText
+                                android:id="@+id/etSearchName"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_medium"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="@string/search_by_name"
+                                android:inputType="text"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/gray_500"
+                                android:textSize="@dimen/text_size_medium" />
+                        </LinearLayout>
+
+                        <!-- Email Search -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:text="@string/email"
+                            android:textColor="@color/gray_300"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/input_height"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:background="@drawable/bg_input"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/padding_medium"
+                            android:paddingEnd="@dimen/padding_medium">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:contentDescription="@string/email"
+                                android:src="@drawable/ic_email"
+                                app:tint="@color/gray_500" />
+
+                            <EditText
+                                android:id="@+id/etSearchEmail"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_medium"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="@string/search_by_email"
+                                android:inputType="textEmailAddress"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/gray_500"
+                                android:textSize="@dimen/text_size_medium" />
+                        </LinearLayout>
+
+                        <!-- Phone Search -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:text="@string/phone"
+                            android:textColor="@color/gray_300"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/input_height"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:background="@drawable/bg_input"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/padding_medium"
+                            android:paddingEnd="@dimen/padding_medium">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:contentDescription="@string/phone"
+                                android:src="@drawable/ic_phone"
+                                app:tint="@color/gray_500" />
+
+                            <EditText
+                                android:id="@+id/etSearchPhone"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_medium"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="@string/search_by_phone"
+                                android:inputType="phone"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/gray_500"
+                                android:textSize="@dimen/text_size_medium" />
+                        </LinearLayout>
+
+                        <!-- Search Button -->
+                        <Button
+                            android:id="@+id/btnSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:background="@drawable/bg_button_primary"
+                            android:drawableStart="@drawable/ic_search"
+                            android:drawablePadding="@dimen/padding_small"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="@string/search"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Create New Contact Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCreateContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_dashed_border"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_xlarge">
+
+                    <View
+                        android:layout_width="@dimen/icon_size_huge"
+                        android:layout_height="@dimen/icon_size_huge"
+                        android:background="@drawable/bg_circle_blue" />
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_large"
+                        android:layout_height="@dimen/icon_size_large"
+                        android:layout_marginTop="-48dp"
+                        android:contentDescription="@string/create_new_contact"
+                        android:src="@drawable/ic_add"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/create_new_contact"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:text="@string/add_a_new_contact"
+                        android:textColor="@color/gray_400"
+                        android:textSize="@dimen/text_size_normal" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Contacts RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvContacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+
+            <!-- Pagination -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_large"
+                android:background="@drawable/bg_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_small">
+
+                <TextView
+                    android:id="@+id/tvPageNumber"
+                    android:layout_width="@dimen/icon_size_xlarge"
+                    android:layout_height="@dimen/icon_size_xlarge"
+                    android:background="@drawable/bg_button_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="@string/page_number"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Footer -->
+    <include layout="@layout/footer" />
+</LinearLayout>
