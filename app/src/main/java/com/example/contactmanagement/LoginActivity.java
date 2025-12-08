@@ -22,6 +22,8 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
+
     private EditText etUsername, etPassword;
     private Button btnSignIn;
     private TextView tvSignUp;
@@ -31,26 +33,35 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        // Initialize
-        apiService = ApiClient.getClient().create(ApiService.class);
-        sharedPrefManager = SharedPrefManager.getInstance(this);
+        try {
+            sharedPrefManager = SharedPrefManager.getInstance(this);
 
-        // Check if already logged in
-        if (sharedPrefManager.isLoggedIn()) {
-            startActivity(new Intent(this, ContactsActivity.class));
-            finish();
-            return;
+            if (sharedPrefManager.isLoggedIn()) {
+                startActivity(new Intent(this, ContactsActivity.class));
+                finish();
+                return;
+            }
+
+            setContentView(R.layout.activity_login);
+
+            apiService = ApiClient.getClient().create(ApiService.class);
+            initViews();
+            setupListeners();
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
 
-        // Bind views
+    private void initViews() {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         tvSignUp = findViewById(R.id.tvSignUp);
+    }
 
-        // Set listeners
+    private void setupListeners() {
         btnSignIn.setOnClickListener(v -> login());
         tvSignUp.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
