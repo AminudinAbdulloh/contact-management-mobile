@@ -13,6 +13,7 @@ import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
 import com.example.contactmanagement.models.Contact;
 import com.example.contactmanagement.models.UpdateContactRequest;
+import com.example.contactmanagement.utils.DialogHelper;
 import com.example.contactmanagement.utils.SharedPrefManager;
 
 import retrofit2.Call;
@@ -126,8 +127,11 @@ public class EditContactActivity extends AppCompatActivity {
                         btnSaveChanges.setEnabled(true);
 
                         if (response.isSuccessful() && response.body() != null) {
-                            Toast.makeText(EditContactActivity.this, "Contact updated successfully", Toast.LENGTH_SHORT).show();
-                            finish();
+                            DialogHelper.showSuccessDialog(
+                                    EditContactActivity.this,
+                                    "Contact updated successfully!",
+                                    () -> finish()
+                            );
                         } else {
                             String error = "Failed to update contact";
                             if (response.body() != null && response.body().errors != null) {

@@ -1,6 +1,5 @@
 package com.example.contactmanagement;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
 import com.example.contactmanagement.models.Contact;
 import com.example.contactmanagement.models.ContactsResponse;
+import com.example.contactmanagement.utils.DialogHelper;
 import com.example.contactmanagement.utils.SharedPrefManager;
 
 import retrofit2.Call;
@@ -216,7 +216,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
                 0
         );
 
-        // Add chevron icon (rotated for left arrow)
         btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_chevron_left, 0, 0, 0);
         btn.setCompoundDrawablePadding((int) (8 * getResources().getDisplayMetrics().density));
 
@@ -270,7 +269,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
                 0
         );
 
-        // Add chevron icon programmatically
         btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_right, 0);
         btn.setCompoundDrawablePadding((int) (8 * getResources().getDisplayMetrics().density));
 
@@ -288,12 +286,22 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     }
 
     private void showLogoutDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes", (dialog, which) -> logout())
-                .setNegativeButton("Cancel", null)
-                .show();
+        DialogHelper.showConfirmationDialog(
+                this,
+                "Logout",
+                "Are you sure you want to logout?",
+                new DialogHelper.OnDialogActionListener() {
+                    @Override
+                    public void onPositiveClick() {
+                        logout();
+                    }
+
+                    @Override
+                    public void onNegativeClick() {
+                        // Do nothing, dialog will dismiss
+                    }
+                }
+        );
     }
 
     private void logout() {
@@ -329,12 +337,22 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
     @Override
     public void onDeleteClick(Contact contact) {
-        new AlertDialog.Builder(this)
-                .setTitle("Delete Contact")
-                .setMessage("Are you sure you want to delete " + contact.firstName + " " + contact.lastName + "?")
-                .setPositiveButton("Delete", (dialog, which) -> deleteContact(contact.id))
-                .setNegativeButton("Cancel", null)
-                .show();
+        DialogHelper.showConfirmationDialog(
+                this,
+                "Delete Contact",
+                "Are you sure you want to delete " + contact.firstName + " " + contact.lastName + "?",
+                new DialogHelper.OnDialogActionListener() {
+                    @Override
+                    public void onPositiveClick() {
+                        deleteContact(contact.id);
+                    }
+
+                    @Override
+                    public void onNegativeClick() {
+                        // Do nothing, dialog will dismiss
+                    }
+                }
+        );
     }
 
     @Override
@@ -351,8 +369,11 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(ContactsActivity.this, "Contact deleted", Toast.LENGTH_SHORT).show();
-                    loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+                    DialogHelper.showSuccessDialog(
+                            ContactsActivity.this,
+                            "Contact deleted successfully",
+                            () -> loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone)
+                    );
                 } else {
                     Toast.makeText(ContactsActivity.this, "Failed to delete contact", Toast.LENGTH_SHORT).show();
                 }
