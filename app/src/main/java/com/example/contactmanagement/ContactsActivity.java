@@ -30,13 +30,13 @@ import retrofit2.Response;
 
 public class ContactsActivity extends AppCompatActivity implements ContactAdapter.OnContactClickListener {
 
-    private LinearLayout llProfile, llLogout, llSearchHeader, llSearchFields;
+    private LinearLayout llProfile, llLogout, llSearchHeader, llSearchFields, llPaginationContainer;
     private CardView cardCreateContact;
     private ImageView ivSearchToggle;
     private EditText etSearchName, etSearchEmail, etSearchPhone;
     private Button btnSearch;
     private RecyclerView rvContacts;
-    private TextView tvPageNumber;
+    private TextView tvPageInfo;
 
     private ContactAdapter adapter;
     private ApiService apiService;
@@ -46,6 +46,10 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     private int totalPage = 1;
     private boolean isSearchExpanded = false;
 
+    private String currentSearchName = null;
+    private String currentSearchEmail = null;
+    private String currentSearchPhone = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +58,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         apiService = ApiClient.getClient().create(ApiService.class);
         sharedPrefManager = SharedPrefManager.getInstance(this);
 
-        // Check if logged in
         if (!sharedPrefManager.isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -79,7 +82,8 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         etSearchPhone = findViewById(R.id.etSearchPhone);
         btnSearch = findViewById(R.id.btnSearch);
         rvContacts = findViewById(R.id.rvContacts);
-        tvPageNumber = findViewById(R.id.tvPageNumber);
+        tvPageInfo = findViewById(R.id.tvPageInfo);
+        llPaginationContainer = findViewById(R.id.llPaginationContainer);
     }
 
     private void setupRecyclerView() {
@@ -101,18 +105,18 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
             String name = etSearchName.getText().toString().trim();
             String email = etSearchEmail.getText().toString().trim();
             String phone = etSearchPhone.getText().toString().trim();
+
+            currentSearchName = name.isEmpty() ? null : name;
+            currentSearchEmail = email.isEmpty() ? null : email;
+            currentSearchPhone = phone.isEmpty() ? null : phone;
+
             currentPage = 1;
-            loadContacts(currentPage,
-                    name.isEmpty() ? null : name,
-                    email.isEmpty() ? null : email,
-                    phone.isEmpty() ? null : phone);
+            loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
         });
 
         cardCreateContact.setOnClickListener(v -> {
             startActivity(new Intent(this, CreateContactActivity.class));
         });
-
-        tvPageNumber.setOnClickListener(v -> showPageDialog());
     }
 
     private void toggleSearch() {
@@ -125,7 +129,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         String token = sharedPrefManager.getToken();
 
         apiService.getContacts(token, name, email, phone, page, 10)
-                .enqueue(new Callback<ContactsResponse>() {  // UBAH tipe
+                .enqueue(new Callback<ContactsResponse>() {
                     @Override
                     public void onResponse(Call<ContactsResponse> call, Response<ContactsResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
@@ -136,7 +140,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
                                 if (data.paging != null) {
                                     currentPage = data.paging.page;
                                     totalPage = data.paging.totalPage;
-                                    tvPageNumber.setText(String.valueOf(currentPage));
+                                    buildPaginationButtons();
                                 }
                             }
                         } else {
@@ -151,21 +155,136 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
                 });
     }
 
-    private void showPageDialog() {
-        if (totalPage <= 1) return;
+    private void buildPaginationButtons() {
+        llPaginationContainer.removeAllViews();
 
-        String[] pages = new String[totalPage];
-        for (int i = 0; i < totalPage; i++) {
-            pages[i] = "Page " + (i + 1);
+        if (totalPage <= 1) {
+            llPaginationContainer.setVisibility(View.GONE);
+            return;
         }
 
-        new AlertDialog.Builder(this)
-                .setTitle("Select Page")
-                .setItems(pages, (dialog, which) -> {
-                    currentPage = which + 1;
-                    loadContacts(currentPage, null, null, null);
-                })
-                .show();
+        llPaginationContainer.setVisibility(View.VISIBLE);
+
+        int marginPx = (int) (4 * getResources().getDisplayMetrics().density);
+
+        // Add Previous button
+        TextView prevBtn = createPrevButton();
+        LinearLayout.LayoutParams prevParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                (int) (44 * getResources().getDisplayMetrics().density)
+        );
+        prevParams.setMargins(marginPx, 0, marginPx, 0);
+        prevBtn.setLayoutParams(prevParams);
+        llPaginationContainer.addView(prevBtn);
+
+        // Add page number buttons
+        for (int i = 1; i <= totalPage; i++) {
+            TextView pageBtn = createPageButton(i);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    (int) (44 * getResources().getDisplayMetrics().density),
+                    (int) (44 * getResources().getDisplayMetrics().density)
+            );
+            params.setMargins(marginPx, 0, marginPx, 0);
+            pageBtn.setLayoutParams(params);
+            llPaginationContainer.addView(pageBtn);
+        }
+
+        // Add Next button
+        TextView nextBtn = createNextButton();
+        LinearLayout.LayoutParams nextParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                (int) (44 * getResources().getDisplayMetrics().density)
+        );
+        nextParams.setMargins(marginPx, 0, marginPx, 0);
+        nextBtn.setLayoutParams(nextParams);
+        llPaginationContainer.addView(nextBtn);
+    }
+
+    private TextView createPrevButton() {
+        TextView btn = new TextView(this);
+        btn.setText("Prev");
+        btn.setGravity(android.view.Gravity.CENTER);
+        btn.setTextSize(14);
+        btn.setTextColor(getResources().getColor(R.color.white, null));
+        btn.setBackgroundResource(R.drawable.bg_page_button);
+        btn.setClickable(true);
+        btn.setFocusable(true);
+        btn.setPadding(
+                (int) (12 * getResources().getDisplayMetrics().density),
+                0,
+                (int) (16 * getResources().getDisplayMetrics().density),
+                0
+        );
+
+        // Add chevron icon (rotated for left arrow)
+        btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_chevron_left, 0, 0, 0);
+        btn.setCompoundDrawablePadding((int) (8 * getResources().getDisplayMetrics().density));
+
+        btn.setEnabled(currentPage > 1);
+        btn.setAlpha(currentPage > 1 ? 1.0f : 0.5f);
+
+        btn.setOnClickListener(v -> {
+            if (currentPage > 1) {
+                currentPage--;
+                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+            }
+        });
+
+        return btn;
+    }
+
+    private TextView createPageButton(int pageNum) {
+        TextView btn = new TextView(this);
+        btn.setText(String.valueOf(pageNum));
+        btn.setGravity(android.view.Gravity.CENTER);
+        btn.setTextSize(14);
+        btn.setTextColor(getResources().getColor(R.color.white, null));
+        btn.setBackgroundResource(R.drawable.bg_page_button_selector);
+        btn.setSelected(pageNum == currentPage);
+        btn.setClickable(true);
+        btn.setFocusable(true);
+
+        btn.setOnClickListener(v -> {
+            if (pageNum != currentPage) {
+                currentPage = pageNum;
+                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+            }
+        });
+
+        return btn;
+    }
+
+    private TextView createNextButton() {
+        TextView btn = new TextView(this);
+        btn.setText("Next");
+        btn.setGravity(android.view.Gravity.CENTER);
+        btn.setTextSize(14);
+        btn.setTextColor(getResources().getColor(R.color.white, null));
+        btn.setBackgroundResource(R.drawable.bg_page_button);
+        btn.setClickable(true);
+        btn.setFocusable(true);
+        btn.setPadding(
+                (int) (16 * getResources().getDisplayMetrics().density),
+                0,
+                (int) (12 * getResources().getDisplayMetrics().density),
+                0
+        );
+
+        // Add chevron icon programmatically
+        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_right, 0);
+        btn.setCompoundDrawablePadding((int) (8 * getResources().getDisplayMetrics().density));
+
+        btn.setEnabled(currentPage < totalPage);
+        btn.setAlpha(currentPage < totalPage ? 1.0f : 0.5f);
+
+        btn.setOnClickListener(v -> {
+            if (currentPage < totalPage) {
+                currentPage++;
+                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+            }
+        });
+
+        return btn;
     }
 
     private void showLogoutDialog() {
@@ -190,7 +309,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
-                // Logout locally even if API call fails
                 sharedPrefManager.clearSession();
                 startActivity(new Intent(ContactsActivity.this, LoginActivity.class));
                 finish();
@@ -234,7 +352,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ContactsActivity.this, "Contact deleted", Toast.LENGTH_SHORT).show();
-                    loadContacts(currentPage, null, null, null);
+                    loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
                 } else {
                     Toast.makeText(ContactsActivity.this, "Failed to delete contact", Toast.LENGTH_SHORT).show();
                 }
@@ -250,6 +368,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     @Override
     protected void onResume() {
         super.onResume();
-        loadContacts(currentPage, null, null, null);
+        loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
     }
 }

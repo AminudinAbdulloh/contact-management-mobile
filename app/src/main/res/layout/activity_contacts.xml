@@ -305,27 +305,44 @@
                 android:overScrollMode="never" />
 
             <!-- Pagination -->
+            <!-- Modern Pagination Section - Replace the existing pagination LinearLayout -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_large"
-                android:background="@drawable/bg_card"
+                android:layout_marginBottom="@dimen/margin_medium"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding_small">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvPageNumber"
-                    android:layout_width="@dimen/icon_size_xlarge"
-                    android:layout_height="@dimen/icon_size_xlarge"
-                    android:background="@drawable/bg_button_primary"
-                    android:fontFamily="sans-serif-medium"
+                <!-- Pagination Container -->
+                <LinearLayout
+                    android:id="@+id/llPaginationContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pagination_container"
                     android:gravity="center"
-                    android:text="@string/page_number"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <!-- Pagination buttons will be added dynamically here -->
+                    <!-- Example structure:
+                    - Page 1 button
+                    - Page 2 button
+                    - ...
+                    - Next button
+                    -->
+                </LinearLayout>
+
+                <!-- Page Info (Optional) -->
+                <TextView
+                    android:id="@+id/tvPageInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="Page 1 of 2"
+                    android:textColor="@color/gray_400"
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
