@@ -21,7 +21,7 @@ import com.example.contactmanagement.api.ApiClient;
 import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
 import com.example.contactmanagement.models.Contact;
-import com.example.contactmanagement.models.ContactListResponse;
+import com.example.contactmanagement.models.ContactsResponse;
 import com.example.contactmanagement.utils.SharedPrefManager;
 
 import retrofit2.Call;
@@ -125,17 +125,17 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         String token = sharedPrefManager.getToken();
 
         apiService.getContacts(token, name, email, phone, page, 10)
-                .enqueue(new Callback<ApiResponse<ContactListResponse>>() {
+                .enqueue(new Callback<ContactsResponse>() {  // UBAH tipe
                     @Override
-                    public void onResponse(Call<ApiResponse<ContactListResponse>> call, Response<ApiResponse<ContactListResponse>> response) {
+                    public void onResponse(Call<ContactsResponse> call, Response<ContactsResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            ContactListResponse data = response.body().data;
-                            if (data != null && data.data != null) {
+                            ContactsResponse data = response.body();
+                            if (data.data != null) {
                                 adapter.setContacts(data.data);
 
-                                if (response.body().paging != null) {
-                                    currentPage = response.body().paging.page;
-                                    totalPage = response.body().paging.totalPage;
+                                if (data.paging != null) {
+                                    currentPage = data.paging.page;
+                                    totalPage = data.paging.totalPage;
                                     tvPageNumber.setText(String.valueOf(currentPage));
                                 }
                             }
@@ -145,7 +145,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
                     }
 
                     @Override
-                    public void onFailure(Call<ApiResponse<ContactListResponse>> call, Throwable t) {
+                    public void onFailure(Call<ContactsResponse> call, Throwable t) {
                         Toast.makeText(ContactsActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -226,10 +226,10 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         startActivity(intent);
     }
 
-    private void deleteContact(String contactId) {
+    private void deleteContact(int contactId) {
         String token = sharedPrefManager.getToken();
 
-        apiService.deleteContact(token, contactId).enqueue(new Callback<ApiResponse<String>>() {
+        apiService.deleteContact(token, String.valueOf(contactId)).enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if (response.isSuccessful()) {

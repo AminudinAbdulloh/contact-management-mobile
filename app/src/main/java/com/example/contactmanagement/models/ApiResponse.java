@@ -8,7 +8,4 @@ public class ApiResponse<T> {
 
     @SerializedName("errors")
     public String errors;
-
-    @SerializedName("paging")
-    public Paging paging;
 }

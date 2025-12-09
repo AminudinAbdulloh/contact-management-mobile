@@ -27,7 +27,7 @@ public interface ApiService {
     Call<ApiResponse<Contact>> createContact(@Header("Authorization") String token, @Body CreateContactRequest request);
 
     @GET("contacts")
-    Call<ApiResponse<ContactListResponse>> getContacts(
+    Call<ContactsResponse> getContacts(
             @Header("Authorization") String token,
             @Query("name") String name,
             @Query("email") String email,

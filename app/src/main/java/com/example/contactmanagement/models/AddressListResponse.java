@@ -6,4 +6,7 @@ import java.util.List;
 public class AddressListResponse {
     @SerializedName("data")
     public List<Address> data;
+
+    @SerializedName("paging")
+    public Paging paging;
 }

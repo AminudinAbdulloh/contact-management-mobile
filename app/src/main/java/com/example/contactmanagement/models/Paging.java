@@ -11,4 +11,7 @@ public class Paging {
 
     @SerializedName("size")
     public int size;
+
+    @SerializedName("total_item")
+    public int totalItem;
 }

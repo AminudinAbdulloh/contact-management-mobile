@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Address {
     @SerializedName("id")
-    public String id;
+    public int id;
 
     @SerializedName("street")
     public String street;
