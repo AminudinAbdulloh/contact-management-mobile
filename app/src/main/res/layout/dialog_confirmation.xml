@@ -65,29 +65,23 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDialogPositive"
+                style="@style/Button"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_height="@dimen/button_height_medium"
+                android:layout_marginStart="@dimen/margin_small"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_delete"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/yes"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_medium" />
+                android:background="@drawable/bg_button_red"
+                android:text="@string/yes" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDialogNegative"
+                style="@style/Button"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
+                android:layout_height="@dimen/button_height_medium"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/cancel"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_medium" />
+                android:text="@string/cancel" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

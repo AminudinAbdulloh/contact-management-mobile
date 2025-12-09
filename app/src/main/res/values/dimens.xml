@@ -10,6 +10,7 @@
     <dimen name="padding_medium">16dp</dimen>
     <dimen name="padding_large">24dp</dimen>
     <dimen name="padding_xlarge">32dp</dimen>
+    <dimen name="padding_xxlarge">50dp</dimen>
 
     <!-- Text Sizes -->
     <dimen name="text_size_small">12sp</dimen>
@@ -40,7 +41,8 @@
     <dimen name="icon_size_huge">64dp</dimen>
 
     <!-- Button Height -->
-    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_height_small">36dp</dimen>
+    <dimen name="button_height_medium">48dp</dimen>
     <dimen name="button_height_large">56dp</dimen>
 
     <!-- Input Height -->

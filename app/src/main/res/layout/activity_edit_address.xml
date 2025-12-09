@@ -107,7 +107,7 @@
                     <ImageView
                         android:layout_width="@dimen/icon_size_medium"
                         android:layout_height="@dimen/icon_size_medium"
-                        android:layout_marginStart="-32dp"
+                        android:layout_marginStart="-37dp"
                         android:contentDescription="@string/my_contacts"
                         android:src="@drawable/ic_person"
                         app:tint="@color/white" />
@@ -124,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Aminudin Abdulloh"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_medium"
                             android:textStyle="bold" />
@@ -134,7 +134,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="aminabdulah01@gmail.com • 082259652350"
+                            android:text=""
                             android:textColor="@color/gray_400"
                             android:textSize="@dimen/text_size_small" />
                     </LinearLayout>
@@ -160,7 +160,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/street"
+                        android:text="@string/street_label"
                         android:textColor="@color/gray_300"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -177,7 +177,7 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
-                            android:contentDescription="@string/street"
+                            android:contentDescription="@string/street_label"
                             android:src="@drawable/ic_building"
                             app:tint="@color/gray_500" />
 
@@ -187,8 +187,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="street"
                             android:background="@null"
-                            android:hint="@string/enter_street_address"
+                            android:hint="@string/street_address_hint"
                             android:inputType="textPostalAddress"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -200,7 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="@string/city"
+                        android:text="@string/city_label"
                         android:textColor="@color/gray_300"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -217,7 +218,7 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
-                            android:contentDescription="@string/city"
+                            android:contentDescription="@string/city_label"
                             android:src="@drawable/ic_building"
                             app:tint="@color/gray_500" />
 
@@ -227,8 +228,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="city"
                             android:background="@null"
-                            android:hint="@string/enter_city"
+                            android:hint="@string/city_hint"
                             android:inputType="text"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -240,7 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="@string/province_state"
+                        android:text="@string/province_state_label"
                         android:textColor="@color/gray_300"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -257,7 +259,7 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
-                            android:contentDescription="@string/province_state"
+                            android:contentDescription="@string/province_state_label"
                             android:src="@drawable/ic_map"
                             app:tint="@color/gray_500" />
 
@@ -267,8 +269,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="province"
                             android:background="@null"
-                            android:hint="@string/enter_province_or_state"
+                            android:hint="@string/province_or_state_hint"
                             android:inputType="text"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -280,7 +283,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="@string/country"
+                        android:text="@string/country_label"
                         android:textColor="@color/gray_300"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -297,7 +300,7 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
-                            android:contentDescription="@string/country"
+                            android:contentDescription="@string/country_label"
                             android:src="@drawable/ic_map"
                             app:tint="@color/gray_500" />
 
@@ -307,8 +310,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="country"
                             android:background="@null"
-                            android:hint="@string/enter_country"
+                            android:hint="@string/country_hint"
                             android:inputType="text"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -320,7 +324,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="@string/postal_code"
+                        android:text="@string/postal_code_label"
                         android:textColor="@color/gray_300"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -337,7 +341,7 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
-                            android:contentDescription="@string/postal_code"
+                            android:contentDescription="@string/postal_code_label"
                             android:src="@drawable/ic_building"
                             app:tint="@color/gray_500" />
 
@@ -347,8 +351,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="postalCode"
                             android:background="@null"
-                            android:hint="@string/enter_postal_code"
+                            android:hint="@string/postal_code_hint"
                             android:inputType="number"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -365,7 +370,7 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnCancel"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height"
+                            android:layout_height="@dimen/button_height_large"
                             android:layout_marginEnd="@dimen/margin_small"
                             android:layout_weight="1"
                             android:background="@drawable/bg_button_secondary"
@@ -381,7 +386,7 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnAddAddress"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height"
+                            android:layout_height="@dimen/button_height_large"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:background="@drawable/bg_button_primary"

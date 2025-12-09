@@ -10,24 +10,31 @@
 
     <!-- Auth -->
     <string name="sign_in_to_your_account">Sign in to your account</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
+    <string name="register_confirm_password_hint">Confirm your password</string>
     <string name="sign_in">Sign In</string>
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="sign_up">Sign up</string>
-    <string name="enter_your_username">Enter your username</string>
-    <string name="enter_your_password">Enter your password</string>
+    <string name="login_username_hint">Enter your username</string>
+    <string name="login_password_hint">Enter your password</string>
+    <string name="register_username_hint">Choose a username</string>
+    <string name="register_full_name_hint">Enter your full name</string>
+    <string name="register_password_hint">Create a password</string>
+    <string name="confirm_password_label">Confirm Password</string>
+    <string name="already_have_an_account">Already have an account?</string>
 
     <!-- Profile -->
     <string name="my_profile">My Profile</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="full_name">Full Name</string>
+    <string name="full_name_label">Full Name</string>
     <string name="update_profile">Update Profile</string>
     <string name="change_password">Change Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
-    <string name="enter_your_new_password">Enter your new password</string>
-    <string name="confirm_your_new_password">Confirm your new password</string>
+    <string name="new_password_hint">Enter your new password</string>
+    <string name="confirm_new_password_hint">Confirm your new password</string>
     <string name="update_password">Update Password</string>
 
     <!-- Contacts -->
@@ -40,17 +47,17 @@
     <string name="create_contact">Create Contact</string>
 
     <!-- Contact Fields -->
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="email">Email</string>
-    <string name="phone">Phone</string>
-    <string name="enter_first_name">Enter first name</string>
-    <string name="enter_last_name">Enter last name</string>
-    <string name="enter_email_address">Enter email address</string>
-    <string name="enter_phone_number">Enter phone number</string>
-    <string name="search_by_name">Search by name</string>
-    <string name="search_by_email">Search by email</string>
-    <string name="search_by_phone">Search by phone</string>
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last Name</string>
+    <string name="email_label">Email</string>
+    <string name="phone_label">Phone</string>
+    <string name="first_name_hint">Enter first name</string>
+    <string name="last_name_hint">Enter last name</string>
+    <string name="email_address_hint">Enter email address</string>
+    <string name="phone_number_hint">Enter phone number</string>
+    <string name="search_by_name_hint">Search by name</string>
+    <string name="search_by_email_hint">Search by email</string>
+    <string name="search_by_phone_hint">Search by phone</string>
     <string name="name">Name</string>
     <string name="search">Search</string>
 
@@ -60,23 +67,23 @@
     <string name="edit_address">Edit Address</string>
     <string name="add_new_address">Add New Address</string>
     <string name="home_address">Home Address</string>
-    <string name="street">Street</string>
-    <string name="city">City</string>
-    <string name="province_state">Province/State</string>
-    <string name="country">Country</string>
-    <string name="postal_code">Postal Code</string>
-    <string name="enter_street_address">Enter street address</string>
-    <string name="enter_city">Enter city</string>
-    <string name="enter_province_or_state">Enter province or state</string>
-    <string name="enter_country">Enter country</string>
-    <string name="enter_postal_code">Enter postal code</string>
+    <string name="street_label">Street</string>
+    <string name="city_label">City</string>
+    <string name="province_state_label">Province/State</string>
+    <string name="country_label">Country</string>
+    <string name="postal_code_label">Postal Code</string>
+    <string name="street_address_hint">Enter street address</string>
+    <string name="city_hint">Enter city</string>
+    <string name="province_or_state_hint">Enter province or state</string>
+    <string name="country_hint">Enter country</string>
+    <string name="postal_code_hint">Enter postal code</string>
 
     <!-- Actions -->
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="back">Back</string>
-    <string name="save_changes">Save Changes</string>
+    <string name="save">Save</string>
 
     <!-- Dialogs -->
     <string name="are_you_sure">Are you sure?</string>
@@ -85,6 +92,11 @@
     <string name="success">Success</string>
     <string name="contact_updated_successfully">Contact updated successfully</string>
     <string name="ok">OK</string>
+    <string name="please_wait">Please wait</string>
+    <string name="ups">Ups</string>
+
+    <!--  Pagination  -->
+    <string name="page_info">Page 1 of 2</string>
 
     <!-- Footer -->
     <string name="copyright">© 2025 Contact Management. All rights reserved.</string>

@@ -15,54 +15,71 @@
         android:orientation="vertical"
         android:padding="@dimen/padding_xlarge">
 
-        <!-- Icon -->
+        <!-- Error Icon Circle -->
         <View
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/bg_circle_blue"
-            android:backgroundTint="#D1FAE5" />
+            android:background="@drawable/bg_circle_error" />
 
-        <ImageView
-            android:layout_width="@dimen/icon_size_xlarge"
-            android:layout_height="@dimen/icon_size_xlarge"
-            android:layout_marginTop="-64dp"
-            android:contentDescription="@string/success"
-            android:src="@drawable/ic_check"
-            app:tint="#10B981" />
+        <!-- Error Icon X -->
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="-70dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <!-- Title -->
+            <!-- X Icon menggunakan rotated lines -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:background="@color/red_500"
+                android:rotation="45" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-4dp"
+                android:background="@color/red_500"
+                android:rotation="-45" />
+        </LinearLayout>
+
+        <!-- Error Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/success"
+            android:text="@string/ups"
             android:textColor="@color/gray_900"
             android:textSize="@dimen/text_size_title"
             android:textStyle="bold" />
 
-        <!-- Message -->
+        <!-- Error Message -->
         <TextView
-            android:id="@+id/tvSuccessMessage"
+            android:id="@+id/tvErrorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="@string/contact_updated_successfully"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/gray_600"
             android:textSize="@dimen/text_size_medium" />
 
-        <!-- Button -->
+        <!-- OK Button -->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnOk"
-            android:layout_width="match_parent"
+            android:id="@+id/btnErrorOk"
+            android:layout_width="120dp"
             android:layout_height="@dimen/button_height_medium"
             android:layout_marginTop="@dimen/margin_large"
-            android:background="@drawable/bg_button_primary"
+            android:background="@drawable/bg_button_red"
             android:fontFamily="sans-serif-medium"
             android:text="@string/ok"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_medium" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

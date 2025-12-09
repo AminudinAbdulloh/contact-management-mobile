@@ -58,7 +58,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/street"
+                    android:contentDescription="@string/street_label"
                     android:src="@drawable/ic_building"
                     app:tint="@color/gray_500" />
 
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/street"
+                    android:text="@string/street_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="Marga Mulya"
+                    android:text="@string/street_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/city"
+                    android:contentDescription="@string/city_label"
                     android:src="@drawable/ic_building"
                     app:tint="@color/gray_500" />
 
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/city"
+                    android:text="@string/city_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="Morowali"
+                    android:text="@string/city_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -126,7 +126,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/province_state"
+                    android:contentDescription="@string/province_state_label"
                     android:src="@drawable/ic_map"
                     app:tint="@color/gray_500" />
 
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/province_state"
+                    android:text="@string/province_state_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="Sulawesi Tengah"
+                    android:text="@string/province_state_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -160,7 +160,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/country"
+                    android:contentDescription="@string/city_label"
                     android:src="@drawable/ic_map"
                     app:tint="@color/gray_500" />
 
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/country"
+                    android:text="@string/city_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="Indonesia"
+                    android:text="@string/country_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -194,7 +194,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/postal_code"
+                    android:contentDescription="@string/postal_code_label"
                     android:src="@drawable/ic_building"
                     app:tint="@color/gray_500" />
 
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/postal_code"
+                    android:text="@string/postal_code_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="94977"
+                    android:text="@string/postal_code_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -227,35 +227,25 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnEditAddress"
+                style="@style/Button"
+                android:drawableStart="@drawable/ic_edit"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_height="@dimen/button_height_small"
+                android:layout_marginStart="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:drawableStart="@drawable/ic_edit"
-                android:drawablePadding="@dimen/padding_small"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:text="@string/edit"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_small" />
+                android:text="@string/edit" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDeleteAddress"
+                style="@style/Button"
+                android:drawableStart="@drawable/ic_delete"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/button_height_small"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_delete"
-                android:drawableStart="@drawable/ic_delete"
-                android:drawablePadding="@dimen/padding_small"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:text="@string/delete"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_small" />
+                android:background="@drawable/bg_button_red"
+                android:text="@string/delete" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

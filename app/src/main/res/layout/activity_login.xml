@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_large"
-                    android:text="@string/username"
+                    android:text="@string/username_label"
                     android:textColor="@color/gray_300"
                     android:textSize="@dimen/text_size_medium" />
 
@@ -87,7 +87,7 @@
                     <ImageView
                         android:layout_width="@dimen/icon_size_medium"
                         android:layout_height="@dimen/icon_size_medium"
-                        android:contentDescription="@string/username"
+                        android:contentDescription="@string/username_label"
                         android:src="@drawable/ic_person"
                         app:tint="@color/gray_500" />
 
@@ -97,8 +97,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_medium"
                         android:layout_weight="1"
+                        android:autofillHints="username"
                         android:background="@null"
-                        android:hint="@string/enter_your_username"
+                        android:hint="@string/login_username_hint"
                         android:inputType="text"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray_500"
@@ -110,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_medium"
-                    android:text="@string/password"
+                    android:text="@string/password_label"
                     android:textColor="@color/gray_300"
                     android:textSize="@dimen/text_size_medium" />
 
@@ -127,7 +128,7 @@
                     <ImageView
                         android:layout_width="@dimen/icon_size_medium"
                         android:layout_height="@dimen/icon_size_medium"
-                        android:contentDescription="@string/password"
+                        android:contentDescription="@string/password_label"
                         android:src="@drawable/ic_lock"
                         app:tint="@color/gray_500" />
 
@@ -137,8 +138,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_medium"
                         android:layout_weight="1"
+                        android:autofillHints="password"
                         android:background="@null"
-                        android:hint="@string/enter_your_password"
+                        android:hint="@string/login_password_hint"
                         android:inputType="textPassword"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray_500"
@@ -148,18 +150,12 @@
                 <!-- Sign In Button -->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSignIn"
+                    style="@style/Button"
+                    android:drawableStart="@drawable/ic_logout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_height_large"
                     android:layout_marginTop="@dimen/margin_large"
-                    android:background="@drawable/bg_button_primary"
-                    android:drawableStart="@drawable/ic_logout"
-                    android:drawablePadding="@dimen/padding_small"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
-                    android:text="@string/sign_in"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:text="@string/sign_in" />
 
                 <!-- Sign Up Link -->
                 <LinearLayout

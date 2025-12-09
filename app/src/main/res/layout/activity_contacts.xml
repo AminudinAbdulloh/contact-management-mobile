@@ -137,8 +137,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/margin_medium"
                                 android:layout_weight="1"
+                                android:autofillHints="name"
                                 android:background="@null"
-                                android:hint="@string/search_by_name"
+                                android:hint="@string/search_by_name_hint"
                                 android:inputType="text"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/gray_500"
@@ -150,7 +151,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_medium"
-                            android:text="@string/email"
+                            android:text="@string/search_by_email_hint"
                             android:textColor="@color/gray_300"
                             android:textSize="@dimen/text_size_normal" />
 
@@ -167,7 +168,7 @@
                             <ImageView
                                 android:layout_width="@dimen/icon_size_medium"
                                 android:layout_height="@dimen/icon_size_medium"
-                                android:contentDescription="@string/email"
+                                android:contentDescription="@string/email_label"
                                 android:src="@drawable/ic_email"
                                 app:tint="@color/gray_500" />
 
@@ -177,8 +178,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/margin_medium"
                                 android:layout_weight="1"
+                                android:autofillHints="email"
                                 android:background="@null"
-                                android:hint="@string/search_by_email"
+                                android:hint="@string/search_by_email_hint"
                                 android:inputType="textEmailAddress"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/gray_500"
@@ -190,7 +192,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_medium"
-                            android:text="@string/phone"
+                            android:text="@string/phone_label"
                             android:textColor="@color/gray_300"
                             android:textSize="@dimen/text_size_normal" />
 
@@ -207,7 +209,7 @@
                             <ImageView
                                 android:layout_width="@dimen/icon_size_medium"
                                 android:layout_height="@dimen/icon_size_medium"
-                                android:contentDescription="@string/phone"
+                                android:contentDescription="@string/phone_label"
                                 android:src="@drawable/ic_phone"
                                 app:tint="@color/gray_500" />
 
@@ -217,8 +219,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/margin_medium"
                                 android:layout_weight="1"
+                                android:autofillHints="phone"
                                 android:background="@null"
-                                android:hint="@string/search_by_phone"
+                                android:hint="@string/search_by_phone_hint"
                                 android:inputType="phone"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/gray_500"
@@ -229,7 +232,7 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnSearch"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/button_height"
+                            android:layout_height="@dimen/button_height_small"
                             android:layout_marginTop="@dimen/margin_medium"
                             android:background="@drawable/bg_button_primary"
                             android:drawableStart="@drawable/ic_search"
@@ -330,7 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
-                    android:text="Page 1 of 2"
+                    android:text="@string/page_info"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small"
                     android:visibility="gone" />

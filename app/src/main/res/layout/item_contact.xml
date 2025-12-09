@@ -29,7 +29,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_size_medium"
                 android:layout_height="@dimen/icon_size_medium"
-                android:layout_marginStart="-32dp"
+                android:layout_marginStart="-37dp"
                 android:contentDescription="@string/my_contacts"
                 android:src="@drawable/ic_person"
                 app:tint="@color/white" />
@@ -41,7 +41,7 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
-                android:text="Aminudin Abdulloh"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
@@ -64,7 +64,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/first_name"
+                    android:contentDescription="@string/first_name_label"
                     android:src="@drawable/ic_person"
                     app:tint="@color/gray_500" />
 
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/first_name"
+                    android:text="@string/first_name_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="Aminudin"
+                    android:text="@string/first_name_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -98,7 +98,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/last_name"
+                    android:contentDescription="@string/last_name_label"
                     android:src="@drawable/ic_person"
                     app:tint="@color/gray_500" />
 
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/last_name"
+                    android:text="@string/last_name_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="Abdulloh"
+                    android:text="@string/last_name_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -132,7 +132,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/email"
+                    android:contentDescription="@string/email_label"
                     android:src="@drawable/ic_email"
                     app:tint="@color/gray_500" />
 
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/email"
+                    android:text="@string/email_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="aminabdulah01@gmail.com"
+                    android:text="@string/email_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -166,7 +166,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:contentDescription="@string/phone"
+                    android:contentDescription="@string/phone_label"
                     android:src="@drawable/ic_phone"
                     app:tint="@color/gray_500" />
 
@@ -174,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@string/phone"
+                    android:text="@string/phone_label"
                     android:textColor="@color/gray_400"
                     android:textSize="@dimen/text_size_small" />
 
@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
-                    android:text="082259652350"
+                    android:text="@string/phone_label"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
@@ -199,35 +199,25 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnEdit"
+                style="@style/Button"
+                android:drawableStart="@drawable/ic_edit"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_height="@dimen/button_height_small"
+                android:layout_marginStart="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:drawableStart="@drawable/ic_edit"
-                android:drawablePadding="@dimen/padding_small"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:text="@string/edit"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_small" />
+                android:text="@string/edit" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDelete"
+                style="@style/Button"
+                android:drawableStart="@drawable/ic_delete"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/button_height_small"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_delete"
-                android:drawableStart="@drawable/ic_delete"
-                android:drawablePadding="@dimen/padding_small"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:text="@string/delete"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_small" />
+                android:background="@drawable/bg_button_red"
+                android:text="@string/delete" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

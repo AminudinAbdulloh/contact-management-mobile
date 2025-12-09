@@ -97,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_large"
-                        android:text="@string/full_name"
+                        android:text="@string/full_name_label"
                         android:textColor="@color/gray_300"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -114,7 +114,7 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
-                            android:contentDescription="@string/full_name"
+                            android:contentDescription="@string/full_name_label"
                             android:src="@drawable/ic_person"
                             app:tint="@color/gray_500" />
 
@@ -124,27 +124,27 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="fullName"
                             android:background="@null"
-                            android:text="Aminudin Abdulloh"
+                            android:inputType="text"
+                            android:hint="@string/full_name_label"
+                            android:text="@string/full_name_label"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_medium" />
                     </LinearLayout>
 
                     <!-- Update Profile Button -->
+
+
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnUpdateProfile"
+                        style="@style/Button"
+                        android:drawableStart="@drawable/ic_edit"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/button_height"
+                        android:layout_height="@dimen/button_height_medium"
                         android:layout_marginTop="@dimen/margin_large"
                         android:background="@drawable/bg_button_primary"
-                        android:drawableStart="@drawable/ic_person"
-                        android:drawablePadding="@dimen/padding_small"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:text="@string/update_profile"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_medium" />
+                        android:text="@string/update_profile" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -226,8 +226,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="password"
                             android:background="@null"
-                            android:hint="@string/enter_your_new_password"
+                            android:hint="@string/new_password_hint"
                             android:inputType="textPassword"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -266,8 +267,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_weight="1"
+                            android:autofillHints="password"
                             android:background="@null"
-                            android:hint="@string/confirm_your_new_password"
+                            android:hint="@string/confirm_new_password_hint"
                             android:inputType="textPassword"
                             android:textColor="@color/white"
                             android:textColorHint="@color/gray_500"
@@ -277,18 +279,13 @@
                     <!-- Update Password Button -->
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnUpdatePassword"
+                        style="@style/Button"
+                        android:drawableStart="@drawable/ic_key"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/button_height"
+                        android:layout_height="@dimen/button_height_medium"
                         android:layout_marginTop="@dimen/margin_large"
                         android:background="@drawable/bg_button_primary"
-                        android:drawableStart="@drawable/ic_key"
-                        android:drawablePadding="@dimen/padding_small"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:text="@string/update_password"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_medium" />
+                        android:text="@string/update_password" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
