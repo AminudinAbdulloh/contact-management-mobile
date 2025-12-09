@@ -226,7 +226,7 @@
                         </LinearLayout>
 
                         <!-- Search Button -->
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnSearch"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/button_height"
@@ -305,7 +305,6 @@
                 android:overScrollMode="never" />
 
             <!-- Pagination -->
-            <!-- Modern Pagination Section - Replace the existing pagination LinearLayout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -323,14 +322,6 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="4dp">
-
-                    <!-- Pagination buttons will be added dynamically here -->
-                    <!-- Example structure:
-                    - Page 1 button
-                    - Page 2 button
-                    - ...
-                    - Next button
-                    -->
                 </LinearLayout>
 
                 <!-- Page Info (Optional) -->

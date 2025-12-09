@@ -53,7 +53,7 @@
             android:textSize="@dimen/text_size_medium" />
 
         <!-- Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnOk"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"

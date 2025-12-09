@@ -234,7 +234,7 @@
                 </LinearLayout>
 
                 <!-- Register Button -->
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRegister"
                     style="@style/Button.Primary"
                     android:layout_width="match_parent"

@@ -264,7 +264,7 @@
                         android:layout_marginTop="@dimen/margin_large"
                         android:orientation="horizontal">
 
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnCancel"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/button_height"
@@ -280,7 +280,7 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_medium" />
 
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnCreateContact"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/button_height"

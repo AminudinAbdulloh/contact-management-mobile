@@ -131,7 +131,7 @@
                     </LinearLayout>
 
                     <!-- Update Profile Button -->
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnUpdateProfile"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
@@ -275,7 +275,7 @@
                     </LinearLayout>
 
                     <!-- Update Password Button -->
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnUpdatePassword"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
