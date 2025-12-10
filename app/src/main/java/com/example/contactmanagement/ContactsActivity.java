@@ -363,11 +363,13 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     }
 
     private void deleteContact(int contactId) {
+        DialogHelper.showLoadingDialog(ContactsActivity.this, "Deleting contact...");
         String token = sharedPrefManager.getToken();
 
         apiService.deleteContact(token, String.valueOf(contactId)).enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                DialogHelper.dismissLoadingDialog();
                 if (response.isSuccessful()) {
                     DialogHelper.showSuccessDialog(
                             ContactsActivity.this,
@@ -375,13 +377,14 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
                             () -> loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone)
                     );
                 } else {
-                    Toast.makeText(ContactsActivity.this, "Failed to delete contact", Toast.LENGTH_SHORT).show();
+                    DialogHelper.showErrorDialog(ContactsActivity.this, "Failed to delete contact");
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
-                Toast.makeText(ContactsActivity.this, "Connection error", Toast.LENGTH_SHORT).show();
+                DialogHelper.dismissLoadingDialog();
+                DialogHelper.showFailureDialog(ContactsActivity.this, t);
             }
         });
     }
