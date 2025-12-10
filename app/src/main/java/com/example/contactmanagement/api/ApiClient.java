@@ -1,12 +1,13 @@
 package com.example.contactmanagement.api;
 
+import com.example.contactmanagement.BuildConfig;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://192.168.100.178:5000/api/";
+    private static final String BASE_URL = BuildConfig.BASE_API_PATH;
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
