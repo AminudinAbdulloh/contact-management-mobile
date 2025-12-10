@@ -48,6 +48,7 @@
 
         <!-- Error Title -->
         <TextView
+            android:id="@+id/tvErrorTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
@@ -63,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:text=""
+            android:text="@string/ups"
             android:textAlignment="center"
             android:textColor="@color/gray_600"
             android:textSize="@dimen/text_size_medium" />

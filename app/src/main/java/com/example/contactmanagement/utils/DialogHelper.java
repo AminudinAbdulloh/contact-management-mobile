@@ -12,7 +12,13 @@ import android.widget.TextView;
 
 import com.example.contactmanagement.R;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+
 public class DialogHelper {
+
+    private static Dialog loadingDialog;
 
     public interface OnDialogActionListener {
         void onPositiveClick();
@@ -109,5 +115,87 @@ public class DialogHelper {
 
         dialog.show();
         return dialog;
+    }
+
+    /**
+     * Show error dialog with custom message
+     */
+    public static Dialog showErrorDialog(
+            Context context,
+            String message
+    ) {
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_error);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        TextView tvErrorMessage = dialog.findViewById(R.id.tvErrorMessage);
+        Button btnErrorOk = dialog.findViewById(R.id.btnErrorOk);
+
+        tvErrorMessage.setText(message);
+
+        btnErrorOk.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+        return dialog;
+    }
+
+    /**
+     * Show loading dialog with custom title and message
+     */
+    public static Dialog showLoadingDialog(
+            Context context,
+            String title
+    ) {
+        // Dismiss previous dialog if exists
+        dismissLoadingDialog();
+
+        loadingDialog = new Dialog(context);
+        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loadingDialog.setCancelable(false);
+
+        TextView tvLoadingTitle = loadingDialog.findViewById(R.id.tvLoadingTitle);
+
+        tvLoadingTitle.setText(title);
+
+        loadingDialog.show();
+        return loadingDialog;
+    }
+
+    /**
+     * Dismiss loading dialog
+     */
+    public static void dismissLoadingDialog() {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+    }
+
+    /**
+     * Check if loading dialog is showing
+     */
+    public static boolean isShowing() {
+        return loadingDialog != null && loadingDialog.isShowing();
+    }
+
+    // Method 1: Logika penerjemah error (REUSABLE LOGIC)
+    public static String getReadableErrorMessage(Throwable t) {
+        if (t instanceof SocketTimeoutException) {
+            return "Server sedang sibuk. Periksa koneksi Anda atau coba beberapa saat lagi.";
+        } else if (t instanceof UnknownHostException || t instanceof IOException) {
+            return "Tidak ada koneksi internet. Pastikan WiFi atau Data Seluler aktif.";
+        } else {
+            return "Terjadi kesalahan sistem (" + t.getMessage() + ").";
+        }
+    }
+
+    // Method 2: Versi overload untuk langsung menampilkan dialog dari Throwable
+    public static void showFailureDialog(Context context, Throwable t) {
+        String friendlyMessage = getReadableErrorMessage(t);
+        showErrorDialog(context, friendlyMessage);
     }
 }

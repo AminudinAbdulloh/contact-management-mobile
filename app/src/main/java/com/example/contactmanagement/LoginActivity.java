@@ -14,6 +14,7 @@ import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
 import com.example.contactmanagement.models.LoginRequest;
 import com.example.contactmanagement.models.LoginResponse;
+import com.example.contactmanagement.utils.DialogHelper;
 import com.example.contactmanagement.utils.SharedPrefManager;
 
 import retrofit2.Call;
@@ -84,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        DialogHelper.showLoadingDialog(this, "Signing In...");
+
         btnSignIn.setEnabled(false);
 
         LoginRequest request = new LoginRequest();
@@ -93,25 +96,33 @@ public class LoginActivity extends AppCompatActivity {
         apiService.login(request).enqueue(new Callback<ApiResponse<LoginResponse>>() {
             @Override
             public void onResponse(Call<ApiResponse<LoginResponse>> call, Response<ApiResponse<LoginResponse>> response) {
+                DialogHelper.dismissLoadingDialog();
                 btnSignIn.setEnabled(true);
 
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse data = response.body().data;
                     if (data != null) {
                         sharedPrefManager.saveUser(data.token, data.username, data.name);
-                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
                         startActivity(new Intent(LoginActivity.this, ContactsActivity.class));
                         finish();
+                    } else {
+                        DialogHelper.showErrorDialog(LoginActivity.this, "An error occurred. Please try again.");
                     }
                 } else {
-                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    String errorMessage = "Invalid username or password";
+                    if (response.body() != null && response.body().errors != null) {
+                        errorMessage = response.body().errors;
+                    }
+                    DialogHelper.showErrorDialog(LoginActivity.this, errorMessage);
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<LoginResponse>> call, Throwable t) {
+                DialogHelper.dismissLoadingDialog();
                 btnSignIn.setEnabled(true);
-                Toast.makeText(LoginActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                DialogHelper.showFailureDialog(LoginActivity.this, t);
             }
         });
     }

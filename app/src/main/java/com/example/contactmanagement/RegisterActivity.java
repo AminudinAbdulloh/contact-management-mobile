@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.contactmanagement.api.ApiClient;
 import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
+import com.example.contactmanagement.models.LoginResponse;
 import com.example.contactmanagement.models.RegisterRequest;
 import com.example.contactmanagement.models.User;
+import com.example.contactmanagement.utils.DialogHelper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +85,8 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        DialogHelper.showLoadingDialog(this, "Creating Account...");
+
         btnRegister.setEnabled(false);
 
         RegisterRequest request = new RegisterRequest();
@@ -93,25 +97,38 @@ public class RegisterActivity extends AppCompatActivity {
         apiService.register(request).enqueue(new Callback<ApiResponse<User>>() {
             @Override
             public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
+                DialogHelper.dismissLoadingDialog();
                 btnRegister.setEnabled(true);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(RegisterActivity.this, "Registration successful! Please login", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    finish();
-                } else {
-                    String error = "Registration failed";
-                    if (response.body() != null && response.body().errors != null) {
-                        error = response.body().errors;
+                    User data = response.body().data;
+                    if (data != null) {
+
+                        DialogHelper.showSuccessDialog(
+                                RegisterActivity.this,
+                                "User created successfully!",
+                                () -> {
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                    finish();
+                                }
+                        );
+                    } else {
+                        DialogHelper.showErrorDialog(RegisterActivity.this, "An error occurred during registration. Please try again.");
                     }
-                    Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
+                } else {
+                    String errorMessage = "Invalid username or password";
+                    if (response.body() != null && response.body().errors != null) {
+                        errorMessage = response.body().errors;
+                    }
+                    DialogHelper.showErrorDialog(RegisterActivity.this, errorMessage);
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
+                DialogHelper.dismissLoadingDialog();
                 btnRegister.setEnabled(true);
-                Toast.makeText(RegisterActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                DialogHelper.showFailureDialog(RegisterActivity.this, t);
             }
         });
     }

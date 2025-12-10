@@ -24,7 +24,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Get BASE_API_PATH from local.properties
-        val baseUrl = getLocalProperty("BASE_API_PATH", "http://192.168.100.178:5000/api/")
+        val baseUrl = getLocalProperty("BASE_API_PATH")
         buildConfigField("String", "BASE_API_PATH", "\"$baseUrl\"")
     }
 

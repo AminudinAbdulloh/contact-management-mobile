@@ -21,13 +21,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text=""
+            android:text="@string/loading"
             android:textColor="@color/gray_900"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <!-- Loading Subtitle -->
         <TextView
+            android:id="@+id/tvLoadingMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
