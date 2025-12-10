@@ -306,10 +306,12 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
     private void logout() {
         String token = sharedPrefManager.getToken();
+        DialogHelper.showLoadingDialog(this, "Logging out...");
 
         apiService.logout(token).enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                DialogHelper.dismissLoadingDialog();
                 sharedPrefManager.clearSession();
                 startActivity(new Intent(ContactsActivity.this, LoginActivity.class));
                 finish();
@@ -317,6 +319,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                DialogHelper.dismissLoadingDialog();
                 sharedPrefManager.clearSession();
                 startActivity(new Intent(ContactsActivity.this, LoginActivity.class));
                 finish();
