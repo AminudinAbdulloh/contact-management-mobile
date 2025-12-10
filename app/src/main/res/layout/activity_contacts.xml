@@ -305,7 +305,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:clipToPadding="false"
-                android:overScrollMode="never" />
+                android:overScrollMode="never" >
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <!-- Pagination -->
             <LinearLayout
@@ -338,9 +340,9 @@
                     android:textSize="@dimen/text_size_small"
                     android:visibility="gone" />
             </LinearLayout>
+
+            <!-- Footer -->
+            <include layout="@layout/footer" />
         </LinearLayout>
     </ScrollView>
-
-    <!-- Footer -->
-    <include layout="@layout/footer" />
 </LinearLayout>
