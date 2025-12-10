@@ -50,7 +50,7 @@ public interface ApiService {
     Call<ApiResponse<Address>> createAddress(@Header("Authorization") String token, @Path("contactId") String contactId, @Body CreateAddressRequest request);
 
     @GET("contacts/{contactId}/addresses")
-    Call<ApiResponse<AddressListResponse>> getAddresses(@Header("Authorization") String token, @Path("contactId") String contactId);
+    Call<AddressListResponse> getAddresses(@Header("Authorization") String token, @Path("contactId") String contactId);
 
     @GET("contacts/{contactId}/addresses/{addressId}")
     Call<ApiResponse<Address>> getAddress(@Header("Authorization") String token, @Path("contactId") String contactId, @Path("addressId") String addressId);

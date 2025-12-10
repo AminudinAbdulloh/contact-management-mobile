@@ -9,7 +9,7 @@
     <!-- Header -->
     <include layout="@layout/header" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -305,9 +305,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:clipToPadding="false"
-                android:overScrollMode="never" >
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:overScrollMode="never" />
 
             <!-- Pagination -->
             <LinearLayout
@@ -328,20 +326,9 @@
                     android:orientation="horizontal"
                     android:padding="4dp">
                 </LinearLayout>
-
-                <!-- Page Info (Optional) -->
-                <TextView
-                    android:id="@+id/tvPageInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:text="@string/page_info"
-                    android:textColor="@color/gray_400"
-                    android:textSize="@dimen/text_size_small"
-                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Footer -->
     <include layout="@layout/footer" />

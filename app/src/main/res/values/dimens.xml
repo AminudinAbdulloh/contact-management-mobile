@@ -19,7 +19,7 @@
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="text_size_xlarge">20sp</dimen>
     <dimen name="text_size_title">24sp</dimen>
-    <dimen name="text_size_header">28sp</dimen>
+    <dimen name="text_size_header">27sp</dimen>
 
     <!-- Border Radius -->
     <dimen name="radius_small">4dp</dimen>

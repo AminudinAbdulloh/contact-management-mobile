@@ -10,37 +10,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.contactmanagement.adapters.ContactAdapter;
-import com.example.contactmanagement.api.ApiClient;
-import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
 import com.example.contactmanagement.models.Contact;
 import com.example.contactmanagement.models.ContactsResponse;
 import com.example.contactmanagement.utils.DialogHelper;
-import com.example.contactmanagement.utils.SharedPrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ContactsActivity extends AppCompatActivity implements ContactAdapter.OnContactClickListener {
+public class ContactsActivity extends BaseActivity implements ContactAdapter.OnContactClickListener {
 
-    private LinearLayout llProfile, llLogout, llSearchHeader, llSearchFields, llPaginationContainer;
+    private LinearLayout llSearchHeader, llSearchFields, llPaginationContainer;
     private CardView cardCreateContact;
     private ImageView ivSearchToggle;
     private EditText etSearchName, etSearchEmail, etSearchPhone;
     private Button btnSearch;
     private RecyclerView rvContacts;
-    private TextView tvPageInfo;
-
     private ContactAdapter adapter;
-    private ApiService apiService;
-    private SharedPrefManager sharedPrefManager;
 
     private int currentPage = 1;
     private int totalPage = 1;
@@ -55,14 +47,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-        apiService = ApiClient.getClient().create(ApiService.class);
-        sharedPrefManager = SharedPrefManager.getInstance(this);
-
-        if (!sharedPrefManager.isLoggedIn()) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
+        checkAuthentication();
 
         initViews();
         setupRecyclerView();
@@ -71,8 +56,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     }
 
     private void initViews() {
-        llProfile = findViewById(R.id.llProfile);
-        llLogout = findViewById(R.id.llLogout);
         llSearchHeader = findViewById(R.id.llSearchHeader);
         llSearchFields = findViewById(R.id.llSearchFields);
         ivSearchToggle = findViewById(R.id.ivSearchToggle);
@@ -82,7 +65,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         etSearchPhone = findViewById(R.id.etSearchPhone);
         btnSearch = findViewById(R.id.btnSearch);
         rvContacts = findViewById(R.id.rvContacts);
-        tvPageInfo = findViewById(R.id.tvPageInfo);
         llPaginationContainer = findViewById(R.id.llPaginationContainer);
     }
 
@@ -93,12 +75,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     }
 
     private void setupListeners() {
-        llProfile.setOnClickListener(v -> {
-            startActivity(new Intent(this, ProfileActivity.class));
-        });
-
-        llLogout.setOnClickListener(v -> showLogoutDialog());
-
         llSearchHeader.setOnClickListener(v -> toggleSearch());
 
         btnSearch.setOnClickListener(v -> {
@@ -283,48 +259,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         });
 
         return btn;
-    }
-
-    private void showLogoutDialog() {
-        DialogHelper.showConfirmationDialog(
-                this,
-                "Logout",
-                "Are you sure you want to logout?",
-                new DialogHelper.OnDialogActionListener() {
-                    @Override
-                    public void onPositiveClick() {
-                        logout();
-                    }
-
-                    @Override
-                    public void onNegativeClick() {
-                        // Do nothing, dialog will dismiss
-                    }
-                }
-        );
-    }
-
-    private void logout() {
-        String token = sharedPrefManager.getToken();
-        DialogHelper.showLoadingDialog(this, "Logging out...");
-
-        apiService.logout(token).enqueue(new Callback<ApiResponse<String>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
-                DialogHelper.dismissLoadingDialog();
-                sharedPrefManager.clearSession();
-                startActivity(new Intent(ContactsActivity.this, LoginActivity.class));
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
-                DialogHelper.dismissLoadingDialog();
-                sharedPrefManager.clearSession();
-                startActivity(new Intent(ContactsActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
     }
 
     @Override
