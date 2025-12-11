@@ -86,6 +86,8 @@ public class CreateContactActivity extends AppCompatActivity {
             return;
         }
 
+        DialogHelper.showLoadingDialog(this, "Creating contact...");
+
         btnCreateContact.setEnabled(false);
 
         CreateContactRequest request = new CreateContactRequest();
@@ -99,6 +101,7 @@ public class CreateContactActivity extends AppCompatActivity {
         apiService.createContact(token, request).enqueue(new Callback<ApiResponse<Contact>>() {
             @Override
             public void onResponse(Call<ApiResponse<Contact>> call, Response<ApiResponse<Contact>> response) {
+                DialogHelper.dismissLoadingDialog();
                 btnCreateContact.setEnabled(true);
 
                 if (response.isSuccessful() && response.body() != null) {
@@ -108,18 +111,19 @@ public class CreateContactActivity extends AppCompatActivity {
                             () -> finish()
                     );
                 } else {
-                    String error = "Failed to create contact";
+                    String errorMessage = "Failed to create contact";
                     if (response.body() != null && response.body().errors != null) {
-                        error = response.body().errors;
+                        errorMessage = response.body().errors;
                     }
-                    Toast.makeText(CreateContactActivity.this, error, Toast.LENGTH_SHORT).show();
+                    DialogHelper.showErrorDialog(CreateContactActivity.this, errorMessage);
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<Contact>> call, Throwable t) {
+                DialogHelper.dismissLoadingDialog();
                 btnCreateContact.setEnabled(true);
-                Toast.makeText(CreateContactActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                DialogHelper.showFailureDialog(CreateContactActivity.this, t);
             }
         });
     }

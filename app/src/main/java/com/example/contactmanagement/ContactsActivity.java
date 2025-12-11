@@ -52,7 +52,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
         initViews();
         setupRecyclerView();
         setupListeners();
-        loadContacts(currentPage, null, null, null);
+        loadContacts(currentPage, null, null, null, false);
     }
 
     private void initViews() {
@@ -87,7 +87,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
             currentSearchPhone = phone.isEmpty() ? null : phone;
 
             currentPage = 1;
-            loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+            loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, false);
         });
 
         cardCreateContact.setOnClickListener(v -> {
@@ -101,13 +101,21 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
         ivSearchToggle.setRotation(isSearchExpanded ? 0 : 180);
     }
 
-    private void loadContacts(int page, String name, String email, String phone) {
+    private void loadContacts(int page, String name, String email, String phone, boolean showLoading) {
+        if (showLoading) {
+            DialogHelper.showLoadingDialog(ContactsActivity.this, "Loading contacts...");
+        }
+
         String token = sharedPrefManager.getToken();
 
         apiService.getContacts(token, name, email, phone, page, 10)
                 .enqueue(new Callback<ContactsResponse>() {
                     @Override
                     public void onResponse(Call<ContactsResponse> call, Response<ContactsResponse> response) {
+                        if (showLoading) {
+                            DialogHelper.dismissLoadingDialog();
+                        }
+
                         if (response.isSuccessful() && response.body() != null) {
                             ContactsResponse data = response.body();
                             if (data.data != null) {
@@ -126,6 +134,10 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
 
                     @Override
                     public void onFailure(Call<ContactsResponse> call, Throwable t) {
+                        if (showLoading) {
+                            DialogHelper.dismissLoadingDialog();
+                        }
+
                         Toast.makeText(ContactsActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -201,7 +213,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
         btn.setOnClickListener(v -> {
             if (currentPage > 1) {
                 currentPage--;
-                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, true);
             }
         });
 
@@ -222,7 +234,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
         btn.setOnClickListener(v -> {
             if (pageNum != currentPage) {
                 currentPage = pageNum;
-                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, true);
             }
         });
 
@@ -254,7 +266,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
         btn.setOnClickListener(v -> {
             if (currentPage < totalPage) {
                 currentPage++;
-                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+                loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, true);
             }
         });
 
@@ -311,7 +323,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
                     DialogHelper.showSuccessDialog(
                             ContactsActivity.this,
                             "Contact deleted successfully",
-                            () -> loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone)
+                            () -> loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, false)
                     );
                 } else {
                     DialogHelper.showErrorDialog(ContactsActivity.this, "Failed to delete contact");
@@ -329,6 +341,6 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
     @Override
     protected void onResume() {
         super.onResume();
-        loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone);
+        loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, false);
     }
 }

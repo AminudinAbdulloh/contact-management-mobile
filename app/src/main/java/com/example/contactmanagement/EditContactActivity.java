@@ -110,6 +110,8 @@ public class EditContactActivity extends AppCompatActivity {
             return;
         }
 
+        DialogHelper.showLoadingDialog(EditContactActivity.this, "Updating contact...");
+
         btnSaveChanges.setEnabled(false);
 
         UpdateContactRequest request = new UpdateContactRequest();
@@ -124,6 +126,7 @@ public class EditContactActivity extends AppCompatActivity {
                 .enqueue(new Callback<ApiResponse<Contact>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<Contact>> call, Response<ApiResponse<Contact>> response) {
+                        DialogHelper.dismissLoadingDialog();
                         btnSaveChanges.setEnabled(true);
 
                         if (response.isSuccessful() && response.body() != null) {
@@ -133,18 +136,19 @@ public class EditContactActivity extends AppCompatActivity {
                                     () -> finish()
                             );
                         } else {
-                            String error = "Failed to update contact";
+                            String errorMessage = "Failed to update contact";
                             if (response.body() != null && response.body().errors != null) {
-                                error = response.body().errors;
+                                errorMessage = response.body().errors;
                             }
-                            Toast.makeText(EditContactActivity.this, error, Toast.LENGTH_SHORT).show();
+                            DialogHelper.showErrorDialog(EditContactActivity.this, errorMessage);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ApiResponse<Contact>> call, Throwable t) {
+                        DialogHelper.dismissLoadingDialog();
                         btnSaveChanges.setEnabled(true);
-                        Toast.makeText(EditContactActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        DialogHelper.showFailureDialog(EditContactActivity.this, t);
                     }
                 });
     }
