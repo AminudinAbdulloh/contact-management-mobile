@@ -6,8 +6,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.contactmanagement.api.ApiClient;
 import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
@@ -20,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditContactActivity extends AppCompatActivity {
+public class EditContactActivity extends BaseActivity {
 
     private LinearLayout llBackToContacts;
     private EditText etFirstName, etLastName, etEmail, etPhone;

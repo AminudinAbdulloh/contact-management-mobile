@@ -16,10 +16,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Base Activity that handles common functionality across all activities
- * like header navigation (Profile, Logout)
- */
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected ApiService apiService;
@@ -45,10 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupHeaderListeners();
     }
 
-    /**
-     * Setup header navigation listeners (Profile & Logout)
-     * This method is called automatically after setContentView
-     */
     private void setupHeaderListeners() {
         llProfile = findViewById(R.id.llProfile);
         llLogout = findViewById(R.id.llLogout);
@@ -64,9 +56,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Show logout confirmation dialog
-     */
     private void showLogoutDialog() {
         DialogHelper.showConfirmationDialog(
                 this,
@@ -86,9 +75,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         );
     }
 
-    /**
-     * Perform logout operation
-     */
     private void logout() {
         String token = sharedPrefManager.getToken();
         DialogHelper.showLoadingDialog(this, "Logging out...");
@@ -108,9 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Handle successful logout
-     */
     private void handleLogoutSuccess() {
         sharedPrefManager.clearSession();
         Intent intent = new Intent(this, LoginActivity.class);
@@ -119,10 +102,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * Check if user is logged in, redirect to login if not
-     * Call this in onCreate of activities that require authentication
-     */
     protected void checkAuthentication() {
         if (!sharedPrefManager.isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));

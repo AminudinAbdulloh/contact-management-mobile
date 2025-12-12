@@ -2,26 +2,21 @@ package com.example.contactmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.contactmanagement.adapters.AddressAdapter;
-import com.example.contactmanagement.api.ApiClient;
-import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.Address;
 import com.example.contactmanagement.models.AddressListResponse;
 import com.example.contactmanagement.models.ApiResponse;
 import com.example.contactmanagement.models.Contact;
 import com.example.contactmanagement.utils.DialogHelper;
-import com.example.contactmanagement.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 

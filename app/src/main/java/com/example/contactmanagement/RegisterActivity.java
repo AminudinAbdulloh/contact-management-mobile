@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.contactmanagement.api.ApiClient;
 import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.ApiResponse;
-import com.example.contactmanagement.models.LoginResponse;
 import com.example.contactmanagement.models.RegisterRequest;
 import com.example.contactmanagement.models.User;
 import com.example.contactmanagement.utils.DialogHelper;

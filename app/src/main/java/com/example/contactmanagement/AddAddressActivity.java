@@ -7,8 +7,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.contactmanagement.api.ApiClient;
 import com.example.contactmanagement.api.ApiService;
 import com.example.contactmanagement.models.Address;
@@ -22,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddAddressActivity extends AppCompatActivity {
+public class AddAddressActivity extends BaseActivity {
 
     private LinearLayout llBackToContactDetails;
     private TextView tvContactName, tvContactEmail;
