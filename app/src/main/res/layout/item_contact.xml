@@ -29,7 +29,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_size_medium"
                 android:layout_height="@dimen/icon_size_medium"
-                android:layout_marginStart="-37dp"
+                android:layout_marginStart="-36dp"
                 android:contentDescription="@string/my_contacts"
                 android:src="@drawable/ic_person"
                 app:tint="@color/white" />

@@ -9,11 +9,10 @@
     android:padding="@dimen/padding_medium">
 
     <ImageView
-        android:layout_width="@dimen/icon_size_large"
-        android:layout_height="@dimen/icon_size_large"
+        android:layout_width="@dimen/icon_size_xlarge"
+        android:layout_height="@dimen/icon_size_xlarge"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_contact_book"
-        app:tint="@color/white" />
+        android:src="@drawable/contact_management_icon" />
 
     <TextView
         android:layout_width="0dp"
@@ -50,7 +49,8 @@
             android:layout_marginStart="@dimen/margin_small"
             android:text="@string/profile"
             android:textColor="@color/gray_100"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -77,6 +77,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:text="@string/logout"
             android:textColor="@color/gray_100"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"/>
     </LinearLayout>
 </LinearLayout>

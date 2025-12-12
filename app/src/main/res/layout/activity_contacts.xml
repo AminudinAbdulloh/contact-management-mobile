@@ -92,8 +92,8 @@
                             android:layout_width="@dimen/icon_size_medium"
                             android:layout_height="@dimen/icon_size_medium"
                             android:contentDescription="@string/search_contacts"
+                            android:src="@drawable/ic_chevron_up"
                             android:rotation="180"
-                            android:src="@drawable/ic_back"
                             app:tint="@color/gray_400" />
                     </LinearLayout>
 
@@ -231,18 +231,14 @@
                         <!-- Search Button -->
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnSearch"
+                            style="@style/Button"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/button_height_small"
                             android:layout_marginTop="@dimen/margin_medium"
-                            android:background="@drawable/bg_button_primary"
                             android:drawableStart="@drawable/ic_search"
-                            android:drawablePadding="@dimen/padding_small"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center"
-                            android:text="@string/search"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_medium" />
+                            android:text="@string/search" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

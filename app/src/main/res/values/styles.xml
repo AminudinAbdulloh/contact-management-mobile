@@ -52,7 +52,6 @@
         <item name="android:paddingEnd">@dimen/padding_medium</item>
 
         <!-- Tambahan -->
-        <item name="android:drawablePadding">@dimen/padding_small</item>
         <item name="android:gravity">center</item>
     </style>
 

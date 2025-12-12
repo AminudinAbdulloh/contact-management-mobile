@@ -1,5 +1,6 @@
 package com.example.contactmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,7 +74,9 @@ public class EditContactActivity extends BaseActivity {
     }
 
     private void setupListeners() {
-        llBackToContacts.setOnClickListener(v -> finish());
+        llBackToContacts.setOnClickListener(v -> {
+            startActivity(new Intent(this, ContactsActivity.class));
+        });
         btnCancel.setOnClickListener(v -> finish());
         btnSaveChanges.setOnClickListener(v -> updateContact());
     }

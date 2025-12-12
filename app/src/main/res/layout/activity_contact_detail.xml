@@ -361,7 +361,7 @@
                     <ImageView
                         android:layout_width="@dimen/icon_size_medium"
                         android:layout_height="@dimen/icon_size_medium"
-                        android:layout_marginTop="-32dp"
+                        android:layout_marginTop="-36dp"
                         android:contentDescription="@string/add_address"
                         android:src="@drawable/ic_add"
                         app:tint="@color/white" />

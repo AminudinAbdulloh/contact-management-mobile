@@ -25,7 +25,7 @@ public class EditAddressActivity extends BaseActivity {
     private LinearLayout llBackToContactDetails;
     private TextView tvContactName, tvContactEmail;
     private EditText etStreet, etCity, etProvince, etCountry, etPostalCode;
-    private Button btnCancel, btnAddAddress;
+    private Button btnCancel, btnSaveChanges;
 
     private ApiService apiService;
     private SharedPrefManager sharedPrefManager;
@@ -73,7 +73,7 @@ public class EditAddressActivity extends BaseActivity {
         etCountry = findViewById(R.id.etCountry);
         etPostalCode = findViewById(R.id.etPostalCode);
         btnCancel = findViewById(R.id.btnCancel);
-        btnAddAddress = findViewById(R.id.btnAddAddress);
+        btnSaveChanges = findViewById(R.id.btnSaveChanges);
     }
 
     private void populateFields() {
@@ -87,7 +87,7 @@ public class EditAddressActivity extends BaseActivity {
     private void setupListeners() {
         llBackToContactDetails.setOnClickListener(v -> finish());
         btnCancel.setOnClickListener(v -> finish());
-        btnAddAddress.setOnClickListener(v -> updateAddress());
+        btnSaveChanges.setOnClickListener(v -> updateAddress());
     }
 
     private void loadContactInfo() {
@@ -158,7 +158,7 @@ public class EditAddressActivity extends BaseActivity {
         }
 
         DialogHelper.showLoadingDialog(this, "Updating address...");
-        btnAddAddress.setEnabled(false);
+        btnSaveChanges.setEnabled(false);
 
         UpdateAddressRequest request = new UpdateAddressRequest();
         request.street = street;
@@ -174,7 +174,7 @@ public class EditAddressActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call<ApiResponse<Address>> call, Response<ApiResponse<Address>> response) {
                         DialogHelper.dismissLoadingDialog();
-                        btnAddAddress.setEnabled(true);
+                        btnSaveChanges.setEnabled(true);
 
                         if (response.isSuccessful() && response.body() != null) {
                             DialogHelper.showSuccessDialog(
@@ -194,7 +194,7 @@ public class EditAddressActivity extends BaseActivity {
                     @Override
                     public void onFailure(Call<ApiResponse<Address>> call, Throwable t) {
                         DialogHelper.dismissLoadingDialog();
-                        btnAddAddress.setEnabled(true);
+                        btnSaveChanges.setEnabled(true);
                         DialogHelper.showFailureDialog(EditAddressActivity.this, t);
                     }
                 });

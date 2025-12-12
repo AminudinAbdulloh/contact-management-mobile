@@ -369,36 +369,25 @@
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnCancel"
+                            style="@style/Button"
+                            android:layout_height="@dimen/button_height_medium"
+                            android:drawableStart="@drawable/ic_cancel"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height_large"
-                            android:layout_marginEnd="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:background="@drawable/bg_button_secondary"
-                            android:drawableStart="@drawable/ic_delete"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:fontFamily="sans-serif-medium"
-                            android:gravity="center"
-                            android:text="@string/cancel"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_medium" />
+                            android:text="@string/cancel" />
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnAddAddress"
+                            android:id="@+id/btnSaveChanges"
+                            style="@style/Button"
+                            android:layout_height="@dimen/button_height_medium"
+                            android:drawableStart="@drawable/ic_edit"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height_large"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:background="@drawable/bg_button_primary"
-                            android:drawableStart="@drawable/ic_add"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:fontFamily="sans-serif-medium"
-                            android:gravity="center"
-                            android:text="@string/add_address"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_medium" />
-
+                            android:text="@string/save" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
