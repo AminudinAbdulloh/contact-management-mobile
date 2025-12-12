@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -182,7 +180,7 @@ public class DialogHelper {
         return loadingDialog != null && loadingDialog.isShowing();
     }
 
-    // Method 1: Logika penerjemah error (REUSABLE LOGIC)
+    // Method 1: Logika penerjemah error
     public static String getReadableErrorMessage(Throwable t) {
         if (t instanceof SocketTimeoutException) {
             return "Server sedang sibuk. Periksa koneksi Anda atau coba beberapa saat lagi.";
