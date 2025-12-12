@@ -3,6 +3,7 @@ package com.example.contactmanagement;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.contactmanagement.models.ApiResponse;
@@ -16,6 +17,7 @@ import retrofit2.Response;
 
 public class ProfileActivity extends BaseActivity {
 
+    private LinearLayout llBackToContacts;
     private EditText etFullName, etNewPassword, etConfirmPassword;
     private Button btnUpdateProfile, btnUpdatePassword;
 
@@ -32,6 +34,7 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void initViews() {
+        llBackToContacts = findViewById(R.id.llBackToProfile);
         etFullName = findViewById(R.id.etFullName);
         etNewPassword = findViewById(R.id.etNewPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
@@ -40,6 +43,7 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void setupListeners() {
+        llBackToContacts.setOnClickListener(v -> finish());
         btnUpdateProfile.setOnClickListener(v -> updateProfile());
         btnUpdatePassword.setOnClickListener(v -> updatePassword());
     }
@@ -83,6 +87,7 @@ public class ProfileActivity extends BaseActivity {
         request.name = fullName;
 
         String token = sharedPrefManager.getToken();
+        String username = sharedPrefManager.getUsername();
 
         apiService.updateUser(token, request).enqueue(new Callback<ApiResponse<User>>() {
             @Override
@@ -93,13 +98,14 @@ public class ProfileActivity extends BaseActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     User user = response.body().data;
                     if (user != null) {
-                        // Update saved user info
-                        sharedPrefManager.saveUser(user.token, user.username, user.name);
+                        // Update saved user info - KEEP THE EXISTING TOKEN
+                        // API tidak mengembalikan token, jadi kita pakai token yang sudah ada
+                        sharedPrefManager.saveUser(token, username, user.name);
 
                         DialogHelper.showSuccessDialog(
                                 ProfileActivity.this,
                                 "Profile updated successfully!",
-                                () -> loadUserProfile()
+                                null
                         );
                     }
                 } else {
@@ -165,8 +171,8 @@ public class ProfileActivity extends BaseActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     User user = response.body().data;
                     if (user != null) {
-                        // Update saved token
-                        sharedPrefManager.saveUser(user.token, user.username, user.name);
+                        // Password berhasil diupdate
+                        // Token tetap sama, tidak perlu update
 
                         // Clear password fields
                         etNewPassword.setText("");
