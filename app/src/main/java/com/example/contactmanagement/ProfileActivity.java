@@ -1,24 +1,198 @@
 package com.example.contactmanagement;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.example.contactmanagement.models.ApiResponse;
+import com.example.contactmanagement.models.UpdateUserRequest;
+import com.example.contactmanagement.models.User;
+import com.example.contactmanagement.utils.DialogHelper;
 
-public class ProfileActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ProfileActivity extends BaseActivity {
+
+    private EditText etFullName, etNewPassword, etConfirmPassword;
+    private Button btnUpdateProfile, btnUpdatePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        checkAuthentication();
+
+        initViews();
+        setupListeners();
+        loadUserProfile();
+    }
+
+    private void initViews() {
+        etFullName = findViewById(R.id.etFullName);
+        etNewPassword = findViewById(R.id.etNewPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        btnUpdateProfile = findViewById(R.id.btnUpdateProfile);
+        btnUpdatePassword = findViewById(R.id.btnUpdatePassword);
+    }
+
+    private void setupListeners() {
+        btnUpdateProfile.setOnClickListener(v -> updateProfile());
+        btnUpdatePassword.setOnClickListener(v -> updatePassword());
+    }
+
+    private void loadUserProfile() {
+        String token = sharedPrefManager.getToken();
+
+        apiService.getCurrentUser(token).enqueue(new Callback<ApiResponse<User>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    User user = response.body().data;
+                    if (user != null) {
+                        etFullName.setText(user.name);
+                    }
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Failed to load profile", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateProfile() {
+        String fullName = etFullName.getText().toString().trim();
+
+        if (fullName.isEmpty()) {
+            etFullName.setError("Full name is required");
+            etFullName.requestFocus();
+            return;
+        }
+
+        DialogHelper.showLoadingDialog(this, "Updating profile...");
+        btnUpdateProfile.setEnabled(false);
+
+        UpdateUserRequest request = new UpdateUserRequest();
+        request.name = fullName;
+
+        String token = sharedPrefManager.getToken();
+
+        apiService.updateUser(token, request).enqueue(new Callback<ApiResponse<User>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
+                DialogHelper.dismissLoadingDialog();
+                btnUpdateProfile.setEnabled(true);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    User user = response.body().data;
+                    if (user != null) {
+                        // Update saved user info
+                        sharedPrefManager.saveUser(user.token, user.username, user.name);
+
+                        DialogHelper.showSuccessDialog(
+                                ProfileActivity.this,
+                                "Profile updated successfully!",
+                                () -> loadUserProfile()
+                        );
+                    }
+                } else {
+                    String errorMessage = "Failed to update profile";
+                    if (response.body() != null && response.body().errors != null) {
+                        errorMessage = response.body().errors;
+                    }
+                    DialogHelper.showErrorDialog(ProfileActivity.this, errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
+                DialogHelper.dismissLoadingDialog();
+                btnUpdateProfile.setEnabled(true);
+                DialogHelper.showFailureDialog(ProfileActivity.this, t);
+            }
+        });
+    }
+
+    private void updatePassword() {
+        String newPassword = etNewPassword.getText().toString().trim();
+        String confirmPassword = etConfirmPassword.getText().toString().trim();
+
+        if (newPassword.isEmpty()) {
+            etNewPassword.setError("New password is required");
+            etNewPassword.requestFocus();
+            return;
+        }
+
+        if (newPassword.length() < 6) {
+            etNewPassword.setError("Password must be at least 6 characters");
+            etNewPassword.requestFocus();
+            return;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            etConfirmPassword.setError("Please confirm your password");
+            etConfirmPassword.requestFocus();
+            return;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            etConfirmPassword.setError("Passwords do not match");
+            etConfirmPassword.requestFocus();
+            return;
+        }
+
+        DialogHelper.showLoadingDialog(this, "Updating password...");
+        btnUpdatePassword.setEnabled(false);
+
+        UpdateUserRequest request = new UpdateUserRequest();
+        request.password = newPassword;
+
+        String token = sharedPrefManager.getToken();
+
+        apiService.updateUser(token, request).enqueue(new Callback<ApiResponse<User>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
+                DialogHelper.dismissLoadingDialog();
+                btnUpdatePassword.setEnabled(true);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    User user = response.body().data;
+                    if (user != null) {
+                        // Update saved token
+                        sharedPrefManager.saveUser(user.token, user.username, user.name);
+
+                        // Clear password fields
+                        etNewPassword.setText("");
+                        etConfirmPassword.setText("");
+
+                        DialogHelper.showSuccessDialog(
+                                ProfileActivity.this,
+                                "Password updated successfully!",
+                                null
+                        );
+                    }
+                } else {
+                    String errorMessage = "Failed to update password";
+                    if (response.body() != null && response.body().errors != null) {
+                        errorMessage = response.body().errors;
+                    }
+                    DialogHelper.showErrorDialog(ProfileActivity.this, errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
+                DialogHelper.dismissLoadingDialog();
+                btnUpdatePassword.setEnabled(true);
+                DialogHelper.showFailureDialog(ProfileActivity.this, t);
+            }
         });
     }
 }

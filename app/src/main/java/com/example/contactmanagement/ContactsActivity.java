@@ -77,18 +77,7 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
     private void setupListeners() {
         llSearchHeader.setOnClickListener(v -> toggleSearch());
 
-        btnSearch.setOnClickListener(v -> {
-            String name = etSearchName.getText().toString().trim();
-            String email = etSearchEmail.getText().toString().trim();
-            String phone = etSearchPhone.getText().toString().trim();
-
-            currentSearchName = name.isEmpty() ? null : name;
-            currentSearchEmail = email.isEmpty() ? null : email;
-            currentSearchPhone = phone.isEmpty() ? null : phone;
-
-            currentPage = 1;
-            loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, false);
-        });
+        btnSearch.setOnClickListener(v -> performSearch());
 
         cardCreateContact.setOnClickListener(v -> {
             startActivity(new Intent(this, CreateContactActivity.class));
@@ -99,6 +88,23 @@ public class ContactsActivity extends BaseActivity implements ContactAdapter.OnC
         isSearchExpanded = !isSearchExpanded;
         llSearchFields.setVisibility(isSearchExpanded ? View.VISIBLE : View.GONE);
         ivSearchToggle.setRotation(isSearchExpanded ? 0 : 180);
+    }
+
+    private void performSearch() {
+        String name = etSearchName.getText().toString().trim();
+        String email = etSearchEmail.getText().toString().trim();
+        String phone = etSearchPhone.getText().toString().trim();
+
+        // Update current search parameters
+        currentSearchName = name.isEmpty() ? null : name;
+        currentSearchEmail = email.isEmpty() ? null : email;
+        currentSearchPhone = phone.isEmpty() ? null : phone;
+
+        // Reset to page 1 when searching
+        currentPage = 1;
+
+        // Load contacts with search parameters
+        loadContacts(currentPage, currentSearchName, currentSearchEmail, currentSearchPhone, true);
     }
 
     private void loadContacts(int page, String name, String email, String phone, boolean showLoading) {
