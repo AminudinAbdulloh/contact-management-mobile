@@ -34,7 +34,7 @@
                 <View
                     android:layout_width="@dimen/icon_size_huge"
                     android:layout_height="@dimen/icon_size_huge"
-                    android:background="@drawable/bg_circle_icon" />
+                    android:background="@drawable/bg_circle_blue" />
 
                 <ImageView
                     android:layout_width="@dimen/icon_size_large"
@@ -47,8 +47,8 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size_small"
                     android:layout_height="@dimen/icon_size_small"
-                    android:layout_marginTop="-12dp"
-                    android:layout_marginEnd="-24dp"
+                    android:layout_marginTop="-14dp"
+                    android:layout_marginEnd="-13dp"
                     android:contentDescription="@string/sign_up"
                     android:src="@drawable/ic_add"
                     app:tint="@color/white" />
