@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_small"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/add_new_address"
+                        android:text="@string/edit_address"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_large"
                         android:textStyle="bold" />
